@@ -28,11 +28,11 @@ func NewUserService(repo repository.UserRepository, timeout time.Duration) UserS
 	}
 }
 
-func (ss *userService) List(ctx context.Context) ([]model.User, error) {
-	ctx, cancel := context.WithTimeout(ctx, ss.contextTimeout)
+func (us *userService) List(ctx context.Context) ([]model.User, error) {
+	ctx, cancel := context.WithTimeout(ctx, us.contextTimeout)
 	defer cancel()
 
-	snippets, err := ss.repo.GetAll(ctx)
+	snippets, err := us.repo.GetAll(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -40,11 +40,11 @@ func (ss *userService) List(ctx context.Context) ([]model.User, error) {
 	return snippets, nil
 }
 
-func (ss *userService) GetByKeyWord(ctx context.Context, userName string) ([]model.User, error) {
-	ctx, cancel := context.WithTimeout(ctx, ss.contextTimeout)
+func (us *userService) GetByKeyWord(ctx context.Context, userName string) ([]model.User, error) {
+	ctx, cancel := context.WithTimeout(ctx, us.contextTimeout)
 	defer cancel()
 
-	snippets, err := ss.repo.FindByName(ctx, userName)
+	snippets, err := us.repo.FindByName(ctx, userName)
 	if err != nil {
 		return nil, err
 	}
@@ -52,11 +52,11 @@ func (ss *userService) GetByKeyWord(ctx context.Context, userName string) ([]mod
 	return snippets, nil
 }
 
-func (ss *userService) GetByID(ctx context.Context, userID uint64) (model.User, error) {
-	ctx, cancel := context.WithTimeout(ctx, ss.contextTimeout)
+func (us *userService) GetByID(ctx context.Context, userID uint64) (model.User, error) {
+	ctx, cancel := context.WithTimeout(ctx, us.contextTimeout)
 	defer cancel()
 
-	snippet, err := ss.repo.GetByID(ctx, userID)
+	snippet, err := us.repo.GetByID(ctx, userID)
 	if err != nil {
 		return model.User{}, err
 	}
@@ -64,22 +64,22 @@ func (ss *userService) GetByID(ctx context.Context, userID uint64) (model.User, 
 	return snippet, nil
 }
 
-func (ss *userService) Create(ctx context.Context, snippet model.User) error {
-	ctx, cancel := context.WithTimeout(ctx, ss.contextTimeout)
+func (us *userService) Create(ctx context.Context, snippet model.User) error {
+	ctx, cancel := context.WithTimeout(ctx, us.contextTimeout)
 	defer cancel()
 
-	if err := ss.repo.Create(ctx, snippet); err != nil {
+	if err := us.repo.Create(ctx, snippet); err != nil {
 		return err
 	}
 
 	return nil
 }
 
-func (ss *userService) Update(ctx context.Context, snippet model.User) error {
-	ctx, cancel := context.WithTimeout(ctx, ss.contextTimeout)
+func (us *userService) Update(ctx context.Context, snippet model.User) error {
+	ctx, cancel := context.WithTimeout(ctx, us.contextTimeout)
 	defer cancel()
 
-	if err := ss.repo.Create(ctx, snippet); err != nil {
+	if err := us.repo.Create(ctx, snippet); err != nil {
 		return err
 	}
 

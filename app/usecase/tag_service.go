@@ -27,11 +27,11 @@ func NewTagService(repo repository.TagRepository, timeout time.Duration) TagServ
 	}
 }
 
-func (ss *tagService) List(ctx context.Context) ([]model.Tag, error) {
-	ctx, cancel := context.WithTimeout(ctx, ss.contextTimeout)
+func (ts *tagService) List(ctx context.Context) ([]model.Tag, error) {
+	ctx, cancel := context.WithTimeout(ctx, ts.contextTimeout)
 	defer cancel()
 
-	snippets, err := ss.repo.GetAll(ctx)
+	snippets, err := ts.repo.GetAll(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -39,11 +39,11 @@ func (ss *tagService) List(ctx context.Context) ([]model.Tag, error) {
 	return snippets, nil
 }
 
-func (ss *tagService) GetByID(ctx context.Context, id uint64) (model.Tag, error) {
-	ctx, cancel := context.WithTimeout(ctx, ss.contextTimeout)
+func (ts *tagService) GetByID(ctx context.Context, id uint64) (model.Tag, error) {
+	ctx, cancel := context.WithTimeout(ctx, ts.contextTimeout)
 	defer cancel()
 
-	snippet, err := ss.repo.GetByID(ctx, id)
+	snippet, err := ts.repo.GetByID(ctx, id)
 	if err != nil {
 		return model.Tag{}, err
 	}
@@ -51,11 +51,11 @@ func (ss *tagService) GetByID(ctx context.Context, id uint64) (model.Tag, error)
 	return snippet, nil
 }
 
-func (ss *tagService) GetByKeyWord(ctx context.Context, keyword string) ([]model.Tag, error) {
-	ctx, cancel := context.WithTimeout(ctx, ss.contextTimeout)
+func (ts *tagService) GetByKeyWord(ctx context.Context, keyword string) ([]model.Tag, error) {
+	ctx, cancel := context.WithTimeout(ctx, ts.contextTimeout)
 	defer cancel()
 
-	snippets, err := ss.repo.FindByKeyWord(ctx, keyword)
+	snippets, err := ts.repo.FindByKeyWord(ctx, keyword)
 	if err != nil {
 		return nil, err
 	}
@@ -63,11 +63,11 @@ func (ss *tagService) GetByKeyWord(ctx context.Context, keyword string) ([]model
 	return snippets, nil
 }
 
-func (ss *tagService) Create(ctx context.Context, snippet model.Tag, UserID uint64) error {
-	ctx, cancel := context.WithTimeout(ctx, ss.contextTimeout)
+func (ts *tagService) Create(ctx context.Context, snippet model.Tag, UserID uint64) error {
+	ctx, cancel := context.WithTimeout(ctx, ts.contextTimeout)
 	defer cancel()
 
-	if err := ss.repo.Create(ctx, snippet, UserID); err != nil {
+	if err := ts.repo.Create(ctx, snippet, UserID); err != nil {
 		return err
 	}
 
