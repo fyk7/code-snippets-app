@@ -94,6 +94,38 @@ func (sr *snippetRepository) FindByTag(ctx context.Context, tagID uint64) ([]mod
 	return snippets, nil
 }
 
+func (sr *snippetRepository) AssociateWithTag(ctx context.Context, snippetID, tagID, userID int64) error {
+	query := `
+	INSERT INTO snippet_tag_relation (
+	  snippet_id,
+	  tag_id,
+	  created_at,
+	  created_by,
+	  updated_at,
+	  updated_by
+	) VALUES (
+	  @snippetID,
+	  @tagID,
+	  @now,
+	  @UserID,
+	  @now,
+	  @UserID
+	);
+	`
+	now := time.Now()
+	bindParams := map[string]interface{}{
+		"snippetID": snippetID,
+		"tagID":     tagID,
+		"now":       now,
+		"UserID":    strconv.Itoa(int(userID)),
+	}
+	if err := sr.Conn.Exec(query, bindParams).Error; err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (sr *snippetRepository) Create(ctx context.Context, snippet model.Snippet, UserID uint64) error {
 	query := `
 	INSERT INTO snippet (
