@@ -18,16 +18,16 @@ services:
       - "13306:3306" # ローカルのmysqlポートとのダブりを避ける
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
 
-  web:
-    build:
-      context: .
-      dockerfile: Dockerfile
-      target: dev # Dockerfileの"as dev"の箇所を適用する
-    tty: true
-    stdin_open: true
-    volumes:
-      - .:/go/src/app
-    ports:
-      - 8088:8080
-    depends_on:
-      - db
+  # web:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #     target: dev # Dockerfileの"as dev"の箇所を適用する
+  #   tty: true
+  #   stdin_open: true
+  #   volumes:
+  #     - .:/go/src/app
+  #   ports:
+  #     - 8088:8080
+  #   depends_on:
+  #     - db

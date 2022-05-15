@@ -20,10 +20,10 @@ run:
 docker-build:
 	docker build -t code-snippets-app .
 
-docker-run:
+db-start:
 	docker-compose up --build -d
 
-docker-stop:
+db-stop:
 	docker-compose down
 
 lint-prepare:
@@ -33,4 +33,4 @@ lint-prepare:
 lint:
 	./bin/golangci-lint run ./...
 
-.PHONY: clean install unittest init build run docker-build docker-run docker-stop vendor lint-prepare lint
+.PHONY: clean install unittest init build run docker-build db-stardber-stop vendor lint-prepare lint
