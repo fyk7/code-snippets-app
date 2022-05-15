@@ -28,3 +28,4 @@
 tmp/
 docker/
 .env
+.vscode/
