@@ -1,0 +1,4 @@
+DROP TABLE IF EXISTS `snippet`;
+DROP TABLE IF EXISTS `tag`;
+DROP TABLE IF EXISTS `snippet_tag_relation`;
+DROP TABLE IF EXISTS `user`;
